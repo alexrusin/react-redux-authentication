@@ -1,12 +1,29 @@
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+
 const Header = () => {
+    const authenticated = useSelector(({auth}) => auth.authenticated)
+    const renderLinks = () => {
+        if(authenticated) {
+            return (
+                <div>
+                    <Link to="/signout">Sign Out</Link>
+                    <Link to="/feature">Feature</Link>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <Link to="/signup">Sign Up</Link>
+                    <Link to="/signin">Sign In</Link>
+                </div>
+            )
+        }
+    }
     return (
         <div>
             <Link to="/">Redux Auth</Link>
-            <Link to="/signup">Sign Up</Link>
-            <Link to="/signin">Sign In</Link>
-            <Link to="/signout">Sign Out</Link>
-            <Link to="/feature">Feature</Link>
+            { renderLinks() }
         </div>
     )
 }
