@@ -1,13 +1,18 @@
 import { reduxForm, Field } from 'redux-form'
 import { signup } from 'actions'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 const Signup = ({handleSubmit}) => {
     const dispatch = useDispatch()
+    const errorMessage = useSelector(({auth}) => auth.errorMessage)
+    const history = useHistory()
     const onSubmit = (formProps) => {
-        dispatch(signup(formProps))
-        console.log(formProps)
+        dispatch(signup(formProps, () => {
+            history.push('/feature')
+        }))
     }
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <fieldset>
@@ -28,6 +33,7 @@ const Signup = ({handleSubmit}) => {
                     autoComplete="none"
                 />
             </fieldset>
+            <div>{errorMessage}</div>
             <button type="submit">Sign Up!</button>
         </form>
     )
