@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import 'components/HeaderStyle.css'
 
 const Header = () => {
     const authenticated = useSelector(({auth}) => auth.authenticated)
@@ -21,7 +22,7 @@ const Header = () => {
         }
     }
     return (
-        <div>
+        <div className="header">
             <Link to="/">Redux Auth</Link>
             { renderLinks() }
         </div>
